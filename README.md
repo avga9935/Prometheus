@@ -5,7 +5,7 @@ Now unzip the file using “ tar -xzvf NAME OF FILE”
 Now go into the folder we extracted and we will have multiple files available edi file named Prometheus.yml and at the very bottom change " localhost:9090 " to " PUBLICIP:9090 "
 Now use the command “./prometheus --config.file=prometheus.yml “ to start Prometheus.
 Now we can’t use the same terminal to do anything so either we can open a new tab or stop Prometheus and work.
-!Now create a service file to run prometheus as service in background.
+# Now create a service file to run prometheus as service in background.
 Now open a web browser and type “ http://PUBLICIP:9090”
 # TILL NOW WE HAVE PROMETHEUS INSTALLED AND WORKING, IF THE PROMETHEUS WEBPAGE DOESN'T POP UP ON BROWSER THEN CHECK ERRORS ABOVE ONLY.
 # Node exporter Setup
@@ -17,7 +17,7 @@ Now in the machine type “ wget URL COPIED “
 Now unzip using “ tar -xzvf FILE DOWNLOADED “
 Now go into the folder and type “ ./node_exporter --web.listen-address IP OF SAME MACHINE:8080(any random port number can be selected make sure to use the port numbe not being used by any other service).
 After running this command again we won’t be able to do anything on the same terminal so either open new window/tab or stop the service.
-! Now create a service file to run node_exporter as service in background.
+# Now create a service file to run node_exporter as service in background.
 
 #  Connecting Prometheus+Node Exporter
 
