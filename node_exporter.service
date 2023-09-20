@@ -1,0 +1,10 @@
+Description=Node_exporter
+After=network.target
+
+[Service]
+User=root
+ExecStart=/root/node_exporter/node_exporter --web.listen-address=172.31.39.70:9091
+[Install]
+WantedBy=multi-user.target
+
+# most important thing is to make sure about the file path under "ExecStart"
