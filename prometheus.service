@@ -1,0 +1,11 @@
+[Unit]
+Description=Prometheus Server
+After=network.target
+
+[Service]
+User=root
+ExecStart=/root/prometheus/prometheus \
+    --config.file=/root/prometheus/prometheus.yml \
+
+[Install]
+WantedBy=multi-user.target
