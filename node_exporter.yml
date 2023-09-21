@@ -1,0 +1,49 @@
+# this is the file to download/install/setup/run/run as service node exporter on a different machine 
+
+---
+- name: Install and Configure Node Exporter
+  hosts: node_exporter
+  become: true
+  tasks:
+    - name: Download Node Exporter
+      get_url:
+        url: "https://github.com/prometheus/node_exporter/releases/download/v1.6.1/node_exporter-1.6.1.linux-amd64.tar.gz"
+        dest: "/root/node_exporter-1.6.1.linux-amd64.tar.gz"
+      register: download_result
+      until: download_result is succeeded
+      retries: 3
+
+    - name: Extract Node Exporter
+      ansible.builtin.unarchive:
+        src: "/root/node_exporter-1.6.1.linux-amd64.tar.gz"
+        dest: "/root"
+        remote_src: yes
+      notify: Start Node Exporter
+
+    - name: Create Node Exporter Service Configuration
+      ansible.builtin.copy:
+        content: |
+          [Unit]
+          Description=node_exporter
+
+          [Service]
+          User=root
+          ExecStart=/root/node_exporter-1.6.1.linux-amd64/node_exporter --web.listen-address=172.31.39.70:9091
+
+          [Install]
+          WantedBy=multi-user.target
+        dest: "/etc/systemd/system/node_exporter.service"
+      notify: Start Node Exporter
+
+    - name: Create Node Exporter Service
+      systemd:
+        name: node_exporter
+        enabled: yes
+        state: started
+      notify: Start Node Exporter
+
+  handlers:
+    - name: Start Node Exporter
+      systemd:
+        name: node_exporter
+        state: restarted
