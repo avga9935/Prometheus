@@ -51,3 +51,31 @@ In the Grafana homepage, log in and click "Add a Dashboard."
 You'll be prompted to connect a data source. Select Prometheus and enter the URL to access Prometheus. Save and exit.
 Go back to the dashboard, select the data you want to visualize on graphs or tables.
 Save the dashboard to avoid reconfiguration each time.
+
+## Running Prometheus & Node Exporter as a service in background
+# Prometheus service
+At first copy the path where Prometheus.yml file is located
+now make a file under 
+```
+/etc/systemd/system/prometheus.service
+```
+Once done then run following commands : 
+```bash
+systemctl daemon-reload
+systemctl start prometheus.service
+systemctl status prometheus.service
+```
+Now if prometheus.service is running then we are good to go otherwise check prometheus.service file
+# Node_exporter Service
+At first copy the path where node_exporter file is located
+now make a file under 
+```
+/etc/systemd/system/node_exporter.service
+```
+Once done then run following commands : 
+```bash
+systemctl daemon-reload
+systemctl start node_exporter.service
+systemctl status node_exporter.service
+```
+Now if prometheus.service is running then we are good to go otherwise check node_exporter.service file
